@@ -14,8 +14,9 @@ jobs:
       with:
         node-version: 16.x
     - run: npm install --save-dev
-    - run: ./node_modules/.bin/ng lint
+    - run: npm run lint
     - run: npm run ng build --prod
+    - run: ls -l dist
     
     - uses: xresloader/upload-to-github-release@v1
       env:
