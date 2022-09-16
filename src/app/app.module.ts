@@ -2,8 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {RouterModule, Routes} from "@angular/router";
-import {ClipboardService} from "./services/clipboard.service";
+import {RouterModule, Routes} from '@angular/router';
+import {ClipboardService} from './services/clipboard.service';
 
 const appRoutes: Routes = [
 	{path: 'index.html', component: AppComponent},
