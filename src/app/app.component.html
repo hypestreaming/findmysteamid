@@ -1,0 +1,40 @@
+<div style="text-align: center;">
+	<div class="screen-centered">
+		<div *ngIf="!steam_id">
+
+			<p style="color: white;">
+				Let's get started:
+			</p>
+
+			<a [href]="openid_link">
+				<img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png" alt/>
+			</a>
+		</div>
+
+		<div *ngIf="steam_id">
+
+			<p style="color: white; line-height: 24px;">
+				Found your Steam ID!<br />
+				Please copy &amp; paste it in <strong>My Steam</strong> configuration on Twitch.
+			</p>
+
+			<div style="float: left; width: calc(100% - 40px);">
+				<input type="text" readonly [value]="steam_id" style="width: 100%; padding: 4px 8px; border: 1px solid #ccc; border-right: none; border-radius: 4px; height: 32px;"/>
+			</div>
+
+			<div style="float: left; margin-left: -2px; border: 1px solid #ccc; height: 32px; width: 32px; background-image: linear-gradient(#fcfcfc,#eee); padding: 4px;">
+				<div style="cursor: pointer; margin-top: 7px;" (click)="onCopyToClipboardClicked()">
+					<svg width="16" height="16" viewBox="0 0 24 24">
+						<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+					</svg>
+				</div>
+			</div>
+
+			<br style="clear: both;" />
+
+			<p style="font-size: 12px;">
+				~ Served with &hearts; by My Steam Extension ~
+			</p>
+		</div>
+	</div>
+</div>

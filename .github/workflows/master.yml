@@ -1,0 +1,36 @@
+name: findmysteamid
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - run: npm install --save-dev
+    - run: ./node_modules/.bin/ng lint
+    - run: npm run ng build --prod
+    
+    - uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "ext/my-steam-*.zip"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo well, hello there
+#    - name: Configure AWS Credentials
+#      uses: aws-actions/configure-aws-credentials@v1
+#      with:
+#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        aws-region: us-east-1
