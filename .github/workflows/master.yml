@@ -10,28 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+
     - uses: actions/setup-node@v1
       with:
         node-version: 16.x
-    - run: npm install --save-dev
-    - run: npm run lint
-    - run: npm run ng build --prod
+
+    - name: Install dependencies
+      run: npm install --save-dev
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Build
+      run: npm run ng build --prod
+
     - run: ls -l dist
     
-    - uses: xresloader/upload-to-github-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
       with:
-        file: "ext/my-steam-*.zip"
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - run: echo well, hello there
-#    - name: Configure AWS Credentials
-#      uses: aws-actions/configure-aws-credentials@v1
-#      with:
-#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#        aws-region: us-east-1
+    - name: Deploy to S3 static web hosting
+      run: aws s3 sync --acl public-read dist s3://findmysteamid
